@@ -1,0 +1,22 @@
+material:
+  farm:
+    - "WHEAT"
+    - "POTATO"
+  mine:
+    - "STONE"
+    - "COBBLESTONE"
+
+regions:
+  farm1:
+    pos1:
+      x: 0
+      y: 0
+      z: 0
+    pos2:
+      x: 0
+      y: 0
+      z: 0
+    world: "world"
+    material: "WHEAT"
+    count: 0
+    delay: 2
