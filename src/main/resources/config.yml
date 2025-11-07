@@ -18,5 +18,4 @@ regions:
       z: 0
     world: "world"
     material: "WHEAT"
-    count: 0
     delay: 2

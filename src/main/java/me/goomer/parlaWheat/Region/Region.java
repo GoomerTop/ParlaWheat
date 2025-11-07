@@ -10,27 +10,25 @@ import org.bukkit.util.Vector;
 public class Region {
     private Location pos1, pos2, star;
     private String world;
-    private int count;
+    //private int count;
     private int delay;
     private String material;
     private String key;
 
-    public Region(Location pos1, Location pos2, String world, int count, int delay, String material, String key){
+    public Region(Location pos1, Location pos2, String world, int delay, String material, String key){
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.world = world;
-        this.count = count;
         this.material = material;
         this.delay = delay;
         this.key = key;
         this.star=null;
     }
 
-    public Region(Location pos1, Location pos2, String world, int count, int delay, String material, String key, Location star){
+    public Region(Location pos1, Location pos2, String world, int delay, String material, String key, Location star){
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.world = world;
-        this.count = count;
         this.material = material;
         this.delay = delay;
         this.key = key;
@@ -47,10 +45,6 @@ public class Region {
 
     public String getWorld() {
         return world;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public int getDelay() {
@@ -71,10 +65,6 @@ public class Region {
 
     public void setWorld(String world) {
         this.world = world;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public void setDelay(int delay) {

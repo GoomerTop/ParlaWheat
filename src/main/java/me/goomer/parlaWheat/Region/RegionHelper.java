@@ -44,8 +44,6 @@ public class RegionHelper {
 
         String material = plugin.getConfig().getString("regions."+key+".material");
 
-        int count = plugin.getConfig().getInt("regions."+key+".count");
-
         int delay = plugin.getConfig().getInt("regions."+key+".delay");
 
 
@@ -54,10 +52,10 @@ public class RegionHelper {
             int y = plugin.getConfig().getInt("regions." + key + ".star.y");
             int z = plugin.getConfig().getInt("regions." + key + ".star.z");
             Location star = new Location(world, x, y, z);
-            return new Region(pos1, pos2, worldName, count, delay, material, key, star);
+            return new Region(pos1, pos2, worldName, delay, material, key, star);
         }
 
-        return new Region(pos1, pos2, worldName, count, delay, material, key);
+        return new Region(pos1, pos2, worldName, delay, material, key);
     }
 
     public void updateByKey(Region region, String key){
@@ -72,8 +70,6 @@ public class RegionHelper {
         plugin.getConfig().set("regions." + key + ".pos2.z", region.getPos2().getZ());
 
         plugin.getConfig().set("regions."+key+".material", region.getMaterial());
-
-        plugin.getConfig().set("regions."+key+".count", region.getCount());
 
         plugin.getConfig().set("regions."+key+".delay", region.getDelay());
 
@@ -123,5 +119,9 @@ public class RegionHelper {
             }
         }
         return null;
+    }
+
+    public boolean containKey(String key){
+        return plugin.getConfig().contains("regions." + key);
     }
 }

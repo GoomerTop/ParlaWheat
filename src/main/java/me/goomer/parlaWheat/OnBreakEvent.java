@@ -34,10 +34,10 @@ public class OnBreakEvent implements Listener {
             if(region!=null){
                 Ageable ageable = (Ageable) block.getBlockData();
                 if(ageable.getAge() >= 7){
-                    if(region.getCount()==0){
+                    if(plugin.getCountByKey(region.getKey())==0){
                         regenerateFarmBlocks(region);
                     }
-                    regionHelper.setCountByKey(region.getCount()+1, region.getKey());
+                    plugin.addCountByKey(region.getKey());
                 }
             }
         }
@@ -67,10 +67,10 @@ public class OnBreakEvent implements Listener {
             else{
                 Region region = regionHelper.getByBlock(block);
                 if(region!=null){
-                    if(region.getCount()==0){
+                    if(plugin.getCountByKey(region.getKey())==0){
                         regenerateMineBlocks(region);
                     }
-                    regionHelper.setCountByKey(region.getCount()+1, region.getKey());
+                    plugin.addCountByKey(region.getKey());
                     block.setType(Material.STONE);
                 }
                 else{
@@ -85,11 +85,11 @@ public class OnBreakEvent implements Listener {
 
             @Override
             public void run() {
-                Region region = regionHelper.getByKey(og.getKey());
-                placeRandomMine(region);
-                regionHelper.setCountByKey(region.getCount()-1, region.getKey());
-                if(region.getCount()>1){
-                    regenerateMineBlocks(region);
+                // Region region = regionHelper.getByKey(og.getKey());
+                if(plugin.getCountByKey(og.getKey())>0){
+                    placeRandomMine(og);
+                    plugin.removeCountByKey(og.getKey());
+                    regenerateMineBlocks(og);
                 }
             }
         }.runTaskLater(plugin, og.getDelay());
@@ -121,7 +121,7 @@ public class OnBreakEvent implements Listener {
 
         }
 
-        regionHelper.setCountByKey(region.getCount(), region.getKey()); // if didn't find any random block
+        plugin.addCountByKey(region.getKey()); // if didn't find any random block
     }
 
     public boolean mineCheck(Location pos){
@@ -142,17 +142,17 @@ public class OnBreakEvent implements Listener {
 
             @Override
             public void run() {
-                Region region = regionHelper.getByKey(og.getKey());
-                placeRandomFarm(region);
-                regionHelper.setCountByKey(region.getCount()-1, region.getKey());
-                if(region.getCount()>1){
-                    regenerateFarmBlocks(region);
+                //Region region = regionHelper.getByKey(og.getKey());
+                if(plugin.getCountByKey(og.getKey())>0){
+                    placeRandomFarm(og, true);
+                    plugin.removeCountByKey(og.getKey());
+                    regenerateFarmBlocks(og);
                 }
             }
         }.runTaskLater(plugin, og.getDelay());
     }
 
-    public void placeRandomFarm(Region region){
+    public void placeRandomFarm(Region region, boolean flag){
         World world = region.getPos1().getWorld();
 
         int minX = (int) Math.min(region.getPos1().getX(), region.getPos2().getX());
@@ -176,14 +176,14 @@ public class OnBreakEvent implements Listener {
                 Ageable ageable = (Ageable) block.getBlockData();
                 ageable.setAge(7);
                 block.setBlockData(ageable);
-                if(region.getStar()!=null)
+                if(region.getStar()!=null && flag)
                     region.drawParticles(plugin, pos);
                 return;
             }
 
         }
 
-        regionHelper.setCountByKey(region.getCount(), region.getKey()); // if didn't find any random block
+        plugin.addCountByKey(region.getKey()); // if didn't find any random block
     }
 
     public boolean farmCheck(Location pos, String material){

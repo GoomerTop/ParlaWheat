@@ -4,4 +4,12 @@ main: me.goomer.parlaWheat.ParlaWheat
 api-version: '1.21'
 authors: [ gamer top ]
 description: when will there be a chess event?
-
+commands:
+  regenerate:
+    description: ""
+  editregion:
+    description: ""
+  addregion:
+    description: ""
+  removeregion:
+    description: ""
