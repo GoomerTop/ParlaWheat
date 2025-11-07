@@ -6,6 +6,9 @@ import me.goomer.parlaWheat.Commands.Regenerate;
 import me.goomer.parlaWheat.Commands.RemoveRegion;
 import me.goomer.parlaWheat.Region.Region;
 import me.goomer.parlaWheat.Region.RegionHelper;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -50,7 +53,10 @@ public final class ParlaWheat extends JavaPlugin {
         RegionHelper regionHelper = new RegionHelper(this);
         OnBreakEvent place = new OnBreakEvent(this);
         Region region = regionHelper.getByKey(key);
-        int count = counter.get(key);
+        int count = regionHelper.getCountByKey(key);
+        if(regionHelper.isMineMaterial(region.getMaterial())){
+            regenerateStone(region);
+        }
         while (count>0){
             removeCountByKey(key);
             if(regionHelper.isFarmMaterial(region.getMaterial())){
@@ -62,6 +68,28 @@ public final class ParlaWheat extends JavaPlugin {
             count = counter.get(key);
         }
 
+    }
+
+    public void regenerateStone(Region region){
+        int minX = (int) Math.min(region.getPos1().getX(), region.getPos2().getX());
+        int maxX = (int) Math.max(region.getPos1().getX(), region.getPos2().getX());
+        int minY = (int) Math.min(region.getPos1().getY(), region.getPos2().getY());
+        int maxY = (int) Math.max(region.getPos1().getY(), region.getPos2().getY());
+        int minZ = (int) Math.min(region.getPos1().getZ(), region.getPos2().getZ());
+        int maxZ = (int) Math.max(region.getPos1().getZ(), region.getPos2().getZ());
+
+        World world = region.getPos1().getWorld();
+
+        for(int x = minX; x<=maxX; x++){
+            for(int y = minY; y<=maxY; y++){
+                for(int z = minZ; z<=maxZ; z++){
+                    Block block = world.getBlockAt(x, y, z);
+                    if(block.getType()== Material.COBBLESTONE || block.getType()==Material.BEDROCK){
+                        block.setType(Material.STONE);
+                    }
+                }
+            }
+        }
     }
 
     public int getCountByKey(String key){
