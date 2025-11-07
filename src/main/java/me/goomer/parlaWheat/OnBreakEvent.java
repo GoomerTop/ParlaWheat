@@ -89,7 +89,8 @@ public class OnBreakEvent implements Listener {
                 if(plugin.getCountByKey(og.getKey())>0){
                     placeRandomMine(og);
                     plugin.removeCountByKey(og.getKey());
-                    regenerateMineBlocks(og);
+                    if(plugin.getCountByKey(og.getKey())>0)
+                        regenerateMineBlocks(og);
                 }
             }
         }.runTaskLater(plugin, og.getDelay());
@@ -146,7 +147,8 @@ public class OnBreakEvent implements Listener {
                 if(plugin.getCountByKey(og.getKey())>0){
                     placeRandomFarm(og, true);
                     plugin.removeCountByKey(og.getKey());
-                    regenerateFarmBlocks(og);
+                    if(plugin.getCountByKey(og.getKey())>0)
+                        regenerateFarmBlocks(og);
                 }
             }
         }.runTaskLater(plugin, og.getDelay());
@@ -190,7 +192,7 @@ public class OnBreakEvent implements Listener {
         Block block = pos.getBlock();
         //Block under = pos.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY()-1, pos.getBlockZ());
         Block under = block.getRelative(0, -1, 0);
-        if(under.getType()==Material.FARMLAND){
+        if(!under.getType().isAir()){
             if(block.getType().name().equalsIgnoreCase(material)){
                 Ageable ageable = (Ageable) block.getBlockData();
                 return ageable.getAge() < 7;

@@ -42,10 +42,7 @@ public final class ParlaWheat extends JavaPlugin {
 
     public void regenerateAll(){
         for(String key : counter.keySet()){
-            int count = counter.get(key);
-            if(count > 0){
-                regenerateByKey(key);
-            }
+            regenerateByKey(key);
         }
     }
 
@@ -53,7 +50,7 @@ public final class ParlaWheat extends JavaPlugin {
         RegionHelper regionHelper = new RegionHelper(this);
         OnBreakEvent place = new OnBreakEvent(this);
         Region region = regionHelper.getByKey(key);
-        int count = regionHelper.getCountByKey(key);
+        int count = getCountByKey(key);
         if(regionHelper.isMineMaterial(region.getMaterial())){
             regenerateStone(region);
         }
@@ -71,6 +68,7 @@ public final class ParlaWheat extends JavaPlugin {
     }
 
     public void regenerateStone(Region region){
+        System.out.println("enter");
         int minX = (int) Math.min(region.getPos1().getX(), region.getPos2().getX());
         int maxX = (int) Math.max(region.getPos1().getX(), region.getPos2().getX());
         int minY = (int) Math.min(region.getPos1().getY(), region.getPos2().getY());
@@ -85,6 +83,7 @@ public final class ParlaWheat extends JavaPlugin {
                 for(int z = minZ; z<=maxZ; z++){
                     Block block = world.getBlockAt(x, y, z);
                     if(block.getType()== Material.COBBLESTONE || block.getType()==Material.BEDROCK){
+                        System.out.println("works");
                         block.setType(Material.STONE);
                     }
                 }
