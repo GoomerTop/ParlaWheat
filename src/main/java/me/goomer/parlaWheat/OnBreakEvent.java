@@ -28,6 +28,7 @@ public class OnBreakEvent implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event){
+        System.out.println("broke");
         Block block = event.getBlock();
         if(regionHelper.isFarmMaterial(block.getType().name())){
             Region region = regionHelper.getByBlock(block);
@@ -192,7 +193,7 @@ public class OnBreakEvent implements Listener {
         Block block = pos.getBlock();
         //Block under = pos.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY()-1, pos.getBlockZ());
         Block under = block.getRelative(0, -1, 0);
-        if(!under.getType().isAir()){
+        if(!under.getType().isAir() && under.getType()!=Material.WATER && !regionHelper.isFarmMaterial(under.getType().name())){
             if(block.getType().name().equalsIgnoreCase(material)){
                 Ageable ageable = (Ageable) block.getBlockData();
                 return ageable.getAge() < 7;

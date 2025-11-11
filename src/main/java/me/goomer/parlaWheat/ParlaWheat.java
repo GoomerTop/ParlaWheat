@@ -26,6 +26,7 @@ public final class ParlaWheat extends JavaPlugin {
         saveDefaultConfig();
         counter = new HashMap<>();
         getServer().getPluginManager().registerEvents(new OnBreakEvent(this), this);
+        getServer().getPluginManager().registerEvents(new OnBlockPhysics(this), this);
         getCommand("regenerate").setExecutor(new Regenerate(this));
         getCommand("editregion").setExecutor(new EditRegion(this));
         getCommand("addregion").setExecutor(new AddRegion(this));

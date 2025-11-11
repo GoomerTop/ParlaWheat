@@ -9,5 +9,6 @@ me\goomer\parlaWheat\OnBreakEvent.class
 me\goomer\parlaWheat\Region\RegionHelper.class
 me\goomer\parlaWheat\OnBreakEvent$2.class
 me\goomer\parlaWheat\Commands\RemoveRegion.class
+me\goomer\parlaWheat\OnBlockPhysics.class
 me\goomer\parlaWheat\Commands\EditRegion.class
 me\goomer\parlaWheat\Region\Region.class
